@@ -12,7 +12,8 @@
 
 I first encountered this game in the Nokia Handset 3310.
 
-![Bantumi on a Nokia 3310 — the original](media/nokia-3310-bantumi.jpg)
+<img src="media/nokia-3310-bantumi.jpg" alt="Bantumi on a Nokia 3310 — the original" width="400"/>
+
 *Bantumi on a Nokia 3310 — the original*
 
 Bantumi is my Android implementation of Mancala — a two-player turn-based board game where you and an opponent (human or AI) take turns distributing beans across pits, trying to collect the most in your store. The game goes by many names across cultures — Pallanguzhi in Tamil Nadu, Vamana Guntalu in Telugu, Ali Guli Mane in Kannada, Bantumi on Nokia phones. The rule-set I implemented is **Kalah**, the variant Nokia bundled on their handsets.
