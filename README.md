@@ -12,7 +12,7 @@
 
 I first encountered this game in the Nokia Handset 3310.
 
-<img src="media/nokia-3310-bantumi.jpg" alt="Bantumi on a Nokia 3310 — the original" width="400"/>
+<img src="media/nokia-3310-bantumi.jpg" alt="Bantumi on a Nokia 3310 — the original" width="300"/>
 
 *Bantumi on a Nokia 3310 — the original*
 
