@@ -51,19 +51,19 @@ The Android version shipped in August 2014. It supports both Bot vs Human and Hu
 
 ---
 
-## The AI
-
-The AI opponent is built on minimax with alpha-beta pruning. On its turn, it searches the game tree up to a configurable depth — five difficulty levels from Beginner to Very Hard — evaluating positions by a weighted score of seeds in the store versus seeds still in play. Bonus turns, where landing on your store earns another move, are explored at the same depth rather than consuming it, so the AI never undervalues chain opportunities. Beginner through Easy respond in under a second; Very Hard tops out at around 10 seconds on older devices.
-
-[→ Full AI algorithm write-up](docs/ai-algorithm.md)
-
----
-
 ## Architecture
 
 The codebase splits into two top-level packages. **`platform/`** carries the rules, AI search, player abstractions, game state, and move executor — zero Android dependencies, pure Java, compiles without `android.jar`. **`android/`** holds everything that touches the SDK: activities, the custom Canvas renderer, SharedPreferences, lifecycle wrappers. The split wasn't there on day one — it landed in Aug 2020 in a single commit that moved ~75 files, and it's the single decision that bought the most maintainability across every toolchain and API change since.
 
 [→ Full architecture overview](docs/architecture.md)
+
+---
+
+## The AI
+
+The AI opponent is built on minimax with alpha-beta pruning. On its turn, it searches the game tree up to a configurable depth — five difficulty levels from Beginner to Very Hard — evaluating positions by a weighted score of seeds in the store versus seeds still in play. Bonus turns, where landing on your store earns another move, are explored at the same depth rather than consuming it, so the AI never undervalues chain opportunities. Beginner through Easy respond in under a second; Very Hard tops out at around 10 seconds on older devices.
+
+[→ Full AI algorithm write-up](docs/ai-algorithm.md)
 
 ---
 
