@@ -42,7 +42,14 @@ Two terms, both differentials:
 
 A positive score means I'm winning the position, negative means the opponent is. Differentials matter more than absolute counts — what you want to know isn't "how much do I have" but "how much more than the opponent."
 
-**What I didn't explore.** Mobility (counting available legal moves), capture-potential (positions one move away from grabbing an opponent pit), endgame-specific terms — none of these are in the current evaluator. When I built this, these two terms covered enough of the positional intuition to produce a challenging bot. I'm open to revisiting.
+**What I tried and dropped.** The two terms that ship today weren't the full search space. At various points the `EngineParameter` surface carried additional heuristic terms:
+
+- **`bonusWeight` / `bonusAlpha` / `bonusBeta`** — rewarding positions one move away from landing a seed in your own store (a bonus-turn setup).
+- **`grab1Weight` / `grab1Alpha` / `grab1Beta`** and **`grab2Weight` / `grab2Alpha` / `grab2Beta`** — rewarding capture-threat positions one and two moves out.
+
+Each term had its own weight plus alpha and beta shaping coefficients. Nine parameters beyond the original two. I tuned them through the same bot-vs-bot tournament harness described below, and the results didn't justify keeping them — inside the plateau the richer evaluator matched or lost to the two-term one. The extra parameters widened the tuning search space without pulling the plateau higher. So I fell back to `totalWeight` and `mainWeight` alone. The lesson: a simpler evaluator with well-tuned weights beat a richer one I couldn't tune as confidently. Not in theory — in measured win rates.
+
+**What I still haven't explored.** Mobility (counting available legal moves), endgame-specific terms, seed-parity on each side. Any of these could go on the next tuning pass. The richer-evaluator experiment doesn't rule them out; it just says the specific terms I tried didn't beat the baseline.
 
 ---
 
@@ -109,13 +116,19 @@ A note on the turn dimension: the app currently doesn't let the user pick who op
 
 ### The experiment
 
-For each cell in the grid, candidate weight pairs were played against each other bot-vs-bot, 100 to 1000 games per pairing, alternating sides to neutralise any opening advantage. The winning configurations at each cell were kept.
+For each cell in the grid, candidate configurations were played bot-vs-bot against a reference opponent and scored by win count. Tournament sizes varied across passes — from roughly twenty games in early exploratory sweeps to closer to a thousand in the later confirmation passes. The winning (or co-winning) configurations at each cell were kept.
+
+Along the way, `totalWeight` settled at **1** early and stayed there in every shipped cell. What varied across the table was `mainWeight` — the term that weights the difference between my store and the opponent's. So the "grid" that actually got explored, once `totalWeight` stopped moving, was one-dimensional per cell: how heavily to weight the permanent-store differential relative to the potential-on-the-board differential.
 
 ### What I found
 
-Not a single clear winner at any cell — a **plateau**. Within each cell, a band of weight combinations performed comparably well, and differences between them sat below the noise floor of a 1000-game sample. Which is its own kind of answer: the evaluator is robust to small perturbations. Pick any point inside the plateau and the bot plays competently.
+The pattern wasn't uniform across cells. At most cells, the top of the results table was a **plateau** — several `mainWeight` values produced the same top win count, with differences inside the noise of the sample. That's its own kind of answer: the evaluator is robust to small perturbations. Pick any point inside the plateau and the bot plays competently.
 
-The weights shipped in the app sit inside that plateau for each (level, turn) cell. The difficulty the user picks selects the level; the match-state selects the turn; the table lookup picks the tuned weights.
+At a couple of cells — notably (depth 3, turn 0) and (depth 4, turn 0) — one value came out cleanly ahead of the rest. At those cells the shipped pick was the winner (or a near-winner in the second tier), not a plateau inhabitant.
+
+The shipped weights reflect this mix: inside the plateau where there was one, at the top where there wasn't. The difficulty the user picks selects the level; the match-state selects the turn; the table lookup picks the tuned `(totalWeight, mainWeight)` pair.
+
+There's a small leftover in the shipped table — a depth-6 row, tuned but unreachable, held over from a considered-but-not-shipped higher difficulty. Harmless, and a fair reminder that the table was sized for the experiment, not for the UI.
 
 ---
 
