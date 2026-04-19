@@ -64,7 +64,7 @@ The separation started as a means to an end. It turned out to pay off for a deca
 
 ### What came before
 
-This was not day-one. The original Eclipse codebase mixed `android.os.Handler`, `android.util.Log`, and `android.content.Intent` into the engine path — standard for a first Android project in 2014. The clean separation was carved out during the migration to Android Studio, when the tuning work forced the question.
+This was not day-one. The original Eclipse codebase mixed `android.os.Handler`, `android.util.Log`, and `android.content.Intent` into the engine path — standard for a first Android project in 2014. The first step toward the split was the Android Studio migration in 2016, which introduced a `wrapper/` package — `HandlerWrapper`, `GameOverIntent`, `SoundProvider` as interfaces, with Android implementations kept behind them. That wasn't the full carve-out yet; it was the tooling-up for it. The clean `platform/` vs `android/` split itself landed in August 2020, in a single commit that renamed and relocated ~75 files, when the tuning work had finally produced enough tournament data to justify the investment. See the [evolution write-up](evolution.md) for the full arc.
 
 ---
 
