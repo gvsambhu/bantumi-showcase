@@ -170,3 +170,7 @@ XML-based layouts with nested ViewGroups would have worked, technically. They wo
 So the whole board is computed from first principles each draw: measure the view's dimensions, lay out pit positions as rectangles, draw circles for seeds, draw text for counts. The layout math is a function of `onSizeChanged()` inputs. No density buckets, no `-sw600dp` resource variants for the board itself — it just scales.
 
 The AI's thinking indicator — the rotating arc — is composited on top of the same canvas, driven by `MachineThinkerAnimator`'s separate thread posting invalidation requests. When the AI returns, the animator stops and the arc disappears on the next draw.
+
+---
+
+*[← Back to README](../README.md) · [The AI →](ai-algorithm.md)*

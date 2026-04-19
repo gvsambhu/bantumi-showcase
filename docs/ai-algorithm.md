@@ -141,3 +141,7 @@ Classical minimax-with-alpha-beta is a well-fitted tool for Bantumi. But a decad
 - **Self-play reinforcement learning.** Train an evaluator via a neural network playing itself, AlphaZero-style. Overkill for a free Android board game, but theoretically interesting — Mancala variants are small enough that a modest network could learn near-optimal play in hours, not weeks.
 
 The game as it ships today is complete in itself. The bot at Very Hard is already stronger than most casual players want to face, the rules are correct, and the experience doesn't depend on any of the above to be good. These are directions I'm open to growing into, not gaps to fill.
+
+---
+
+*[← Architecture](architecture.md) · [Back to README](../README.md) · [The Long Arc →](evolution.md)*

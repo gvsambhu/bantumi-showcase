@@ -385,3 +385,7 @@ It's a claim about the leverage of thinking carefully about
 responsibilities once, early, and then not having to re-think them.
 
 One person. Still running.
+
+---
+
+*[← The AI](ai-algorithm.md) · [Back to README](../README.md)*
